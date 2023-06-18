@@ -1,16 +1,29 @@
+import { useState } from "react";
+import { Searchbar } from "./Searchbar/Searchbar";
+import { ImageGallery } from "./ImageGallery/ImageGallery";
+
 export const App = () => {
+  const [imageName, setImageName] = useState('');
+  const [images, setImages] = useState(null);
+  const [page, setPage] = useState(null);
+
+  const formNameGetter = (name) => {
+    if (name !== "") {
+      setImageName(name);
+      setImages([]);
+      setPage(1);
+    }
+  }
+
   return (
-    <div
-      style={{
-        height: '100vh',
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        fontSize: 40,
-        color: '#010101'
-      }}
-    >
-      React homework template
-    </div>
+    <>
+      <Searchbar
+        onNameTransfer={formNameGetter} />
+      <ImageGallery
+        request={imageName}
+        defaultPage={page}
+        defaultImages={images}
+      />
+    </>
   );
-};
+}
