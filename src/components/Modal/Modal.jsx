@@ -4,11 +4,7 @@ import { Overlay, Instance } from './Modal.styled';
 export const Modal = ({imagesArr, largeImg, onCloseModal}) => {
   // const [image, setImage] = useState(null);
 
-  const handleEscClose = e => {
-    if (e.key === 'Escape') {
-      onCloseModal(e);
-    }
-  }
+  
 
   const handleMouseClose = e => {
     if (e.currentTarget === e.target) {
@@ -17,11 +13,17 @@ export const Modal = ({imagesArr, largeImg, onCloseModal}) => {
   }
 
   useEffect(() => {
+    const handleEscClose = e => {
+      if (e.key === 'Escape') {
+        onCloseModal(e);
+      }
+    }
+
     window.addEventListener('keydown', handleEscClose);
     return () => {
       window.removeEventListener('keydown', handleEscClose);
     };
-  }, []);
+  }, [onCloseModal]);
 
   return (
     imagesArr.map((image) => (
